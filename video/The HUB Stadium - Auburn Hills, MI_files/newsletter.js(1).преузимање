@@ -1,0 +1,36 @@
+(function (global) {
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function(obj, start) {
+            var i, j;
+            i = start || 0;
+            j = this.length;
+            while (i < j) {
+                if (this[i] === obj) {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        };
+    }
+    if(!global.Spothopper) { global.Spothopper = {}; };
+    var spothopper = global.Spothopper;
+
+    if(!spothopper.processedScripts) { spothopper.processedScripts = []; };
+    var processedScripts = spothopper.processedScripts;
+
+    var scriptTags = document.getElementsByTagName('script');
+    var thisRequestUrl = 'https://www.spothopperapp.com/spots/80373/widgets/newsletter.js?template=newsletter_widget2';
+
+    for(var i = 0; i < scriptTags.length; i++) {
+        var scriptTag = scriptTags[i];
+        if (scriptTag.src == thisRequestUrl && processedScripts.indexOf(scriptTag) < 0) {
+            processedScripts.push(scriptTag);
+            var div = document.createElement('div');
+            div.id = 'email_subscription_80373_newsletter_widget2_7a02900681ef6c323659773328b89bab';
+            div.className = 'spothopper-embeddable';
+            scriptTag.parentNode.insertBefore(div, scriptTag);
+            div.innerHTML = '<div class="sph-email-subscription">    <div class="sph-email-form">        	<h2>Sign up for our newsletter &amp; get exclusive offers and invites!</h2>        <input class="sph-email-input" aria-label="Email address" id="sph-newsletter-input-7a02900681ef6c323659773328b89bab" type="email" placeholder="Your Email..."  required="required"/>					<input aria-label="newsletter-phone" id="sph-newsletter-phone-7a02900681ef6c323659773328b89bab" placeholder="Phone Number..." type="text" class="sph-email-input">          <div style="display: flex; align-items: baseline;">            <input id="sph-newsletter-checkbox-phone-7a02900681ef6c323659773328b89bab" type="checkbox" checked> <label style="margin-left: 5px;" for="sph-newsletter-checkbox-phone-7a02900681ef6c323659773328b89bab"><h2>I&#x27;d like to get texts about specials, events, and other exclusive offers and announcements not available to general public <a target="_blank" href="https://www.spothopperapp.com/spots/80373/privacy_policy" style="color:inherit;text-decoration:underline;">Privacy Policy</a></h2></label>          </div>				<input type="hidden" value=#newsletter>        <button type="button" class="sph-submit-button" id="7a02900681ef6c323659773328b89bab" onclick=sendEmail_MT(this.id)><span class="sph-submit-label">Submit</span><span class="sph-loading-img"><img src="https://static.spotapps.co/assets/widgets/loading.gif" alt="Newsletter loader icon"></span></button>    </div>    <div class="sph-response-message">    </div></div>';
+        }
+    }
+})(this);

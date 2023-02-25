@@ -1,0 +1,36 @@
+(function (global) {
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function(obj, start) {
+            var i, j;
+            i = start || 0;
+            j = this.length;
+            while (i < j) {
+                if (this[i] === obj) {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        };
+    }
+    if(!global.Spothopper) { global.Spothopper = {}; };
+    var spothopper = global.Spothopper;
+
+    if(!spothopper.processedScripts) { spothopper.processedScripts = []; };
+    var processedScripts = spothopper.processedScripts;
+
+    var scriptTags = document.getElementsByTagName('script');
+    var thisRequestUrl = 'https://www.spothopperapp.com/spots/80373/widgets/newsletter.js?template=newsletter_widget1';
+
+    for(var i = 0; i < scriptTags.length; i++) {
+        var scriptTag = scriptTags[i];
+        if (scriptTag.src == thisRequestUrl && processedScripts.indexOf(scriptTag) < 0) {
+            processedScripts.push(scriptTag);
+            var div = document.createElement('div');
+            div.id = 'email_subscription_80373_newsletter_widget1_b906bc0727935ad52469ec2fe427c14a';
+            div.className = 'spothopper-embeddable';
+            scriptTag.parentNode.insertBefore(div, scriptTag);
+            div.innerHTML = '<div class="sph-email-subscription">    <div class="sph-email-form">        	<h2>Sign up for our newsletter &amp; get exclusive offers and invites!</h2>        <input class="sph-email-input" aria-label="newsletter email address" id="sph-newsletter-input-b906bc0727935ad52469ec2fe427c14a" type="email" placeholder="Your Email..."  required="required"/>        <button type="button" class="sph-submit-button" id="b906bc0727935ad52469ec2fe427c14a" onclick="submitEmail(this.id)"><span class="sph-submit-label">Submit</span><span class="sph-loading-img"><img src="https://static.spotapps.co/assets/widgets/loading.gif" alt="Newsletter loader icon"></span></button>    </div>    <div class="sph-response-message">    </div></div>';
+        }
+    }
+})(this);
